@@ -35,7 +35,9 @@ h1{
 
 .card:hover{
     transform:scale(1.03);
-    box-shadow:0 0 20px orange;
+    box-shadow:
+0 0 6px #ff6b35,
+0 0 15px #ff3d00;
 }
 
 .card img{
@@ -49,11 +51,59 @@ h1{
 .card p{
     padding:0 20px;
 }
+.card{
+    cursor:pointer;
+    transition:all 1s ease;
+}
 
+.card.selected{
+    transform:scale(1.4);
+    z-index:100;
+}
+
+.card.burn{
+    opacity:0;
+    transform:scale(0.7);
+    filter:
+        brightness(2)
+        sepia(1)
+        hue-rotate(-30deg);
+}
+
+body.animating .grid{
+    pointer-events:none;
+}
 
 </style>
 </head>
 
+    <script>
+
+function choose(selectedCard, destination){
+
+    document.body.classList.add("animating");
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        if(card === selectedCard){
+            card.classList.add("selected");
+        }
+        else{
+            card.classList.add("burn");
+        }
+
+    });
+
+    setTimeout(() => {
+        window.location.href = destination;
+    }, 2000);
+
+}
+
+</script>
+    
 <body>
 
 <h1>Osud námořníka</h1>
@@ -69,31 +119,23 @@ Upravil jsem si kožený pás s tesákem, hodil těžký žok s výstrojí přes
 
 <div class="grid">
 
-<div class="card">
-    <a href="laska.html">
-        <img src="images/Blízká láska.jpg" alt="Blízká láska">
-    </a>
+<div class="card" onclick="choose(this,'laska.html')">
+    <img src="images/Blízká láska.jpg">
     <p>Dokážeš získat srdce osoby, kterou obdivuješ?</p>
 </div>
 
-<div class="card">
-    <a href="ritual.html">
-        <img src="images/Lesní rituál.jpg" alt="Lesní rituál">
-    </a>
+<div class="card" onclick="choose(this,'ritual.html')">
+        <img src="images/Lesní rituál.jpg">
     <p>V tajemném lese probíhá prastarý obřad.</p>
 </div>
 
-<div class="card">
-    <a href="plavba.html">
-        <img src="images/Nebezpečná plavba.jpg" alt="Nebezpečná plavba">
-    </a>
+<div class="card" onclick="choose(this,'plavba.html')">
+        <img src="images/Nebezpečná plavba.jpg">
     <p>Bouře a mořská monstra čekají za horizontem.</p>
 </div>
 
-<div class="card">
-    <a href="pirati.html">
-        <img src="images/Odhalit doupě pirátů.jpg" alt="Doupě pirátů">
-    </a>
+<div class="card" onclick="choose(this,'pirati.html')">
+        <img src="images/Odhalit doupě pirátů.jpg">
     <p>Máš odvahu proniknout mezi piráty?</p>
 </div>
 

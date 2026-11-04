@@ -5,39 +5,6 @@
 <title>Osud dobrodruha</title>
 
 <style>
-
-<script>
-
-function fadeMusic(){
-
-    const audio = document.getElementById("bgmusic");
-
-    let volume = 1;
-
-    const fade = setInterval(() => {
-
-        volume -= 0.05;
-
-        if(volume <= 0){
-
-            audio.volume = 0;
-            clearInterval(fade);
-
-        } else {
-
-            audio.volume = volume;
-
-        }
-
-    },50);
-
-}
-
-</script>
-    
-<audio autoplay loop id="bgmusic">
-    <source src="music/(Pirate Adventure Music) - A Sailor's Journey - (feat. Léa FANTIN).mp3" type="audio/mpeg">
-</audio>
     
 body{
     background:#1a1208;
@@ -128,39 +95,15 @@ body.animating .grid{
 }
 
 </style>
+    
 </head>
-
-    <script>
-
-function choose(selectedCard, destination){
-
-    fadeMusic();
-
-    document.body.classList.add("animating");
-
-    let cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-
-        if(card === selectedCard){
-            card.classList.add("selected");
-        }
-        else{
-            card.classList.add("burn");
-        }
-
-    });
-
-    setTimeout(() => {
-        window.location.href = destination;
-    }, 2000);
-
-}
-
-</script>
     
 <body>
 
+<audio autoplay loop id="bgmusic" volume="0.4">
+    <source src="music/Pirate Adventure.mp3" type="audio/mpeg">
+</audio>
+    
 <h1>Osud námořníka</h1>
 
 <p>Slaná pěna mi ještě stékala po tváři, když jsem přehodil tlusté konopné lano přes dřevěný kůl na molu. Naše loď, věrná Sea Swallow, po týdnech na rozbouřeném oceánu konečně tiše oddychovala v klidných vodách přístavu. Vítal nás Cape West Fishing Village.
@@ -195,3 +138,59 @@ Upravil jsem si kožený pás s tesákem, hodil těžký žok s výstrojí přes
 </div>
 
 </div>
+
+    <script>
+
+function fadeMusic(){
+
+    const audio = document.getElementById("bgmusic");
+
+    if(!audio) return;
+
+    let volume = audio.volume;
+
+    const fade = setInterval(() => {
+
+        volume -= 0.05;
+
+        if(volume <= 0){
+
+            audio.volume = 0;
+            clearInterval(fade);
+
+        } else {
+
+            audio.volume = volume;
+
+        }
+
+    },50);
+
+}
+
+function choose(selectedCard, destination){
+
+    fadeMusic();
+
+    document.body.classList.add("animating");
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        if(card === selectedCard){
+            card.classList.add("selected");
+        }
+        else{
+            card.classList.add("burn");
+        }
+
+    });
+
+    setTimeout(() => {
+        window.location.href = destination;
+    },2000);
+
+}
+
+</script>

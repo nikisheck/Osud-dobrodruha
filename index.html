@@ -10,6 +10,7 @@ body{
     background:#1a1208;
     color:#f8e8c8;
     font-family: 'MedievalSharp', static;
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
     text-align:center;
     margin:0;
     padding:40px;
@@ -98,6 +99,28 @@ body.animating .grid{
     
 <script>
 
+window.addEventListener('load', () => {
+
+    const music = document.getElementById('bgmusic');
+
+    music.volume = 0.4;
+
+});
+
+document.addEventListener('click', () => {
+
+    const music = document.getElementById('bgmusic');
+
+    if (music.paused) {
+
+        music.play().catch(err => {
+            console.log(err);
+        });
+
+    }
+
+}, { once: true });
+
 function fadeMusic(){
 
     const audio = document.getElementById("bgmusic");
@@ -159,6 +182,9 @@ function choose(selectedCard, destination){
 <body>
 
 <audio loop id="bgmusic">
+    <button onclick="document.getElementById('bgmusic').play()">
+Přehrát hudbu
+</button>
     <source src="music/PirateAdventure.mp3" type="audio/mpeg">
 </audio>
     

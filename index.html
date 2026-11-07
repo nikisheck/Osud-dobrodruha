@@ -42,6 +42,14 @@ body::before{
     z-index:-1;
 
 }
+body.animating::before{
+
+    background:rgba(0,0,0,0.85);
+
+    backdrop-filter:blur(4px);
+
+    transition:all 2s ease;
+}
 h1{
     color:#ff7f1d;
     font-size:60px;
@@ -51,9 +59,7 @@ body.animating > p{
     opacity:0;
     transition:0.5s;
 }
-    body.animating{
-    background:#050200;
-}
+
 .grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);

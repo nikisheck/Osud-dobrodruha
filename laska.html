@@ -18,9 +18,7 @@ body{
     color:#00282c;
     text-align:center;
     font-family: 'MedievalSharp', static;
-
-    min-height:100vh;
-    padding-top:100px;
+    padding:40px;
 }
 
 button{
@@ -126,6 +124,42 @@ body.animating .grid{
 </style>
 </head>
 
+<script>
+
+function pokracuj(){
+
+    document.getElementById("kapitola1").style.display = "none";
+
+    document.getElementById("kapitola2").style.display = "block";
+
+}
+    
+function choose(selectedCard, destination){
+
+    fadeMusic();
+
+    document.body.classList.add("animating");
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        if(card === selectedCard){
+            card.classList.add("selected");
+        }
+        else{
+            card.classList.add("burn");
+        }
+
+    });
+
+    setTimeout(() => {
+        window.location.href = destination;
+    },3000);
+
+}
+</script>
+
 <body>
 
     <audio autoplay loop id="bgmusic">
@@ -186,41 +220,4 @@ Po několika klidných dnech se objevila nová výzva...
     </a>
     <p>***</p>
 </div>
-
-<script>
-
-function pokracuj(){
-
-    document.getElementById("kapitola1").style.display = "none";
-
-    document.getElementById("kapitola2").style.display = "block";
-
-}
-    
-function choose(selectedCard, destination){
-
-    fadeMusic();
-
-    document.body.classList.add("animating");
-
-    let cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-
-        if(card === selectedCard){
-            card.classList.add("selected");
-        }
-        else{
-            card.classList.add("burn");
-        }
-
-    });
-
-    setTimeout(() => {
-        window.location.href = destination;
-    },3000);
-
-}
-
-</script>
 </body>

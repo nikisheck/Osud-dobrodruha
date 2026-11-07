@@ -78,6 +78,50 @@ button:hover{
 .card.selected{
     animation: magicChoice 3s forwards;
 }
+
+@keyframes magicChoice{
+
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+    20%{
+        transform:scale(1.05);
+        opacity:1;
+
+        box-shadow:
+            0 0 15px #ff6b35,
+            0 0 35px #ff3d00;
+    }
+
+    70%{
+        transform:scale(1.05);
+        opacity:1;
+
+        box-shadow:
+            0 0 25px #ff6b35,
+            0 0 60px #ff3d00;
+    }
+
+    100%{
+        transform:scale(1.15);
+        opacity:0;
+    }
+}
+
+.card.burn{
+    opacity:0;
+    transform:scale(0.7);
+    filter:
+        brightness(2)
+        sepia(1)
+        hue-rotate(-30deg);
+}
+
+body.animating .grid{
+    pointer-events:none;
+}
     
 </style>
 </head>
@@ -115,30 +159,30 @@ Po několika klidných dnech se objevila nová výzva...
 
 <div class="grid">
 
-<div class="card">
+<div class="card" onclick="choose(this,'kamarad.html')">
     <a href="kamarad.html">
-        <img src="images/Kamarád z dětství.jpg" alt="Kamarád z dětství">
+        <img src="images/Kamarád z dětství.jpg">
     </a>
     <p>***</p>
 </div>
 
 <div class="card">
     <a href="mesto.html">
-        <img src="images/Strážit město.jpg" alt="Strážit město">
+        <img src="images/Strážit město.jpg">
     </a>
     <p>***</p>
 </div>
 
 <div class="card">
     <a href="ztrata.html">
-        <img src="images/Tragická ztráta.jpg" alt="Tragická ztráta">
+        <img src="images/Tragická ztráta.jpg">
     </a>
     <p>***</p>
 </div>
 
 <div class="card">
     <a href="prokleti.html">
-        <img src="images/Prokletí.jpg" alt="Prokletí">
+        <img src="images/Prokletí.jpg">
     </a>
     <p>***</p>
 </div>
@@ -150,6 +194,31 @@ function pokracuj(){
     document.getElementById("kapitola1").style.display = "none";
 
     document.getElementById("kapitola2").style.display = "block";
+
+}
+    
+function choose(selectedCard, destination){
+
+    fadeMusic();
+
+    document.body.classList.add("animating");
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        if(card === selectedCard){
+            card.classList.add("selected");
+        }
+        else{
+            card.classList.add("burn");
+        }
+
+    });
+
+    setTimeout(() => {
+        window.location.href = destination;
+    },3000);
 
 }
 

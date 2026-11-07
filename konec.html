@@ -1,1 +1,19 @@
+<h1>Tvá cesta</h1>
 
+<div id="vysledek"></div>
+
+<script>
+
+let cesta = JSON.parse(localStorage.getItem("cesta")) || [];
+
+let vysledek = document.getElementById("vysledek");
+
+cesta.forEach(volba => {
+
+    vysledek.innerHTML += `
+        <p>${volba}</p>
+    `;
+
+});
+
+</script>

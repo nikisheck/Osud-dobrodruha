@@ -192,7 +192,32 @@ function pokracuj(){
     },1000);
 
 }
-    
+    function fadeMusic(){
+
+    const audio = document.getElementById("bgmusic");
+
+    if(!audio) return;
+
+    let volume = audio.volume;
+
+    const fade = setInterval(() => {
+
+        volume -= 0.01;
+
+        if(volume <= 0){
+
+            audio.volume = 0;
+            clearInterval(fade);
+
+        } else {
+
+            audio.volume = volume;
+
+        }
+
+    },50);
+
+}
 function choose(selectedCard, destination){
 
     fadeMusic();
@@ -271,4 +296,6 @@ Po několika klidných dnech se objevila nová výzva...
         <img src="images/Prokletí.jpg">
     <p>***</p>
 </div>
+    </div>
+    </div>
 </body>

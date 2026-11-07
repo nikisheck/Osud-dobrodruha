@@ -40,6 +40,13 @@ button:hover{
 0 0 6px #ff6b35,
 0 0 15px #ff3d00;
 }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    max-width:1600px;
+    margin:auto;
+}
 
 </style>
 </head>
@@ -50,6 +57,8 @@ button:hover{
     <source src="music/laska.mp3" type="audio/mpeg">
 </audio>
  
+<div id="kapitola1">
+
 <h1>Blízká láska</h1>
 
 <p>
@@ -58,9 +67,60 @@ Vyměnil jsem studený mořský vítr za vůni jasmínu a hřejivou náruč, kte
 <p>
 Získáváš následující bonusy: +1 ⛲ , +2 ⛪
 </p>
-<a href="druha1.html">
-<button>Pokračuj v dobrodružství</button>
-</a>
 
+<button onclick="pokracuj()">
+Pokračuj v dobrodružství
+</button>
+
+</div>
+
+<div id="kapitola2" style="display:none;">
+
+<h1>Dobrodružství pokračuje</h1>
+
+<p>
+Po několika klidných dnech se objevila nová výzva...
+</p>
+
+<div class="grid">
+
+<div class="card">
+    <a href="kamarad.html">
+        <img src="images/Kamarád z dětství.jpg" alt="Kamarád z dětství">
+    </a>
+    <p>***</p>
+</div>
+
+<div class="card">
+    <a href="mesto.html">
+        <img src="images/Strážit město.jpg" alt="Strážit město">
+    </a>
+    <p>***</p>
+</div>
+
+<div class="card">
+    <a href="ztrata.html">
+        <img src="images/Tragická ztráta.jpg" alt="Tragická ztráta">
+    </a>
+    <p>***</p>
+</div>
+
+<div class="card">
+    <a href="prokleti.html">
+        <img src="images/Prokletí.jpg" alt="Prokletí">
+    </a>
+    <p>***</p>
+</div>
+
+<script>
+
+function pokracuj(){
+
+    document.getElementById("kapitola1").style.display = "none";
+
+    document.getElementById("kapitola2").style.display = "block";
+
+}
+
+</script>
 </body>
-

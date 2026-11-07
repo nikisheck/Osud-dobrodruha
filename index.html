@@ -197,7 +197,11 @@ function fadeMusic(){
 }
 
 function choose(selectedCard, destination){
+let cesta = JSON.parse(localStorage.getItem("cesta")) || [];
 
+cesta.push(destination);
+
+localStorage.setItem("cesta", JSON.stringify(cesta));
     fadeMusic();
 
     document.body.classList.add("animating");

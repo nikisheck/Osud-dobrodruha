@@ -47,7 +47,38 @@ button:hover{
     max-width:1600px;
     margin:auto;
 }
+.card{
+    border:none;
+    background:none;
+}
 
+.card:hover{
+    transform:scale(1.03);
+    box-shadow:
+0 0 6px #ff6b35,
+0 0 15px #ff3d00;
+}
+
+.card img{
+    width:100%;
+    display:block;
+}
+.card h2{
+    color:#ffb347;
+}
+
+.card p{
+    padding:0 20px;
+}
+.card{
+    cursor:pointer;
+    transition:all 1s ease;
+}
+
+.card.selected{
+    animation: magicChoice 3s forwards;
+}
+    
 </style>
 </head>
 

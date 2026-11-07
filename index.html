@@ -66,21 +66,38 @@ body.animating > p{
 }
 
 .card.selected{
-    position:fixed;
+    animation: magicChoice 3s forwards;
+}
 
-    top:50%;
-    left:50%;
+@keyframes magicChoice{
 
-    transform:
-        translate(-50%, -50%)
-        scale(0.5);
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
 
-    z-index:1000;
+    20%{
+        transform:scale(1.05);
+        opacity:1;
 
-    transition:all 1.5s ease;
-    box-shadow:
-        0 0 10px #ff6b35,
-        0 0 25px rgba(255,107,53,0.5);
+        box-shadow:
+            0 0 15px #ff6b35,
+            0 0 35px #ff3d00;
+    }
+
+    70%{
+        transform:scale(1.05);
+        opacity:1;
+
+        box-shadow:
+            0 0 25px #ff6b35,
+            0 0 60px #ff3d00;
+    }
+
+    100%{
+        transform:scale(1.15);
+        opacity:0;
+    }
 }
 
 .card.burn{
@@ -225,6 +242,5 @@ Upravil jsem si kožený pás s tesákem, hodil těžký žok s výstrojí přes
 
 </div>
 
-</div>
 </body>
 </html>

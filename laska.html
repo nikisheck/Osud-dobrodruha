@@ -192,11 +192,15 @@ function pokracuj(){
     },1000);
 
 }
-    function fadeMusic(){
+function fadeMusic(){
 
     const audio = document.getElementById("bgmusic");
 
-    if(!audio) return;
+    if(!audio){
+        return;
+    }
+
+    audio.volume = 0.4;
 
     let volume = audio.volume;
 
@@ -299,3 +303,4 @@ Po několika klidných dnech se objevila nová výzva...
     </div>
     </div>
 </body>
+</html>

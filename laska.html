@@ -26,6 +26,14 @@ body{
     color:#299bbe;
     font-size:60px;
 }
+    body.animating #kapitola2 h1,
+body.animating #kapitola2 > p{
+    opacity:0;
+}
+
+body.animating .grid{
+    pointer-events:none;
+}
 body::before{
 
     content:"";
@@ -46,6 +54,14 @@ body::before{
 
     z-index:-1;
 
+}
+    body.animating::before{
+
+    background:rgba(0,0,0,0.85);
+
+    backdrop-filter:blur(4px);
+
+    transition:all 2s ease;
 }
     body.darkChapter::before{
 
@@ -227,7 +243,11 @@ function choose(selectedCard, destination){
     fadeMusic();
 
     document.body.classList.add("animating");
+const heading = document.querySelector("#kapitola2 h1");
+const text = document.querySelector("#kapitola2 > p");
 
+if(heading) heading.style.opacity = "0";
+if(text) text.style.opacity = "0";
     let cards = document.querySelectorAll(".card");
 
     cards.forEach(card => {

@@ -20,7 +20,21 @@ body{
     font-family: 'MedievalSharp', static;
     padding:40px;
 }
+body::before{
 
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.45);
+
+    backdrop-filter:blur(4px);
+
+    z-index:-1;
+
+}
 button{
     background:#d97706;
     color:white;
@@ -128,9 +142,22 @@ body.animating .grid{
 
 function pokracuj(){
 
-    document.getElementById("kapitola1").style.display = "none";
+    const k1 = document.getElementById("kapitola1");
+    const k2 = document.getElementById("kapitola2");
 
-    document.getElementById("kapitola2").style.display = "block";
+    k1.style.opacity = "0";
+
+    setTimeout(() => {
+
+        k1.style.display = "none";
+
+        k2.style.display = "block";
+
+        setTimeout(() => {
+            k2.style.opacity = "1";
+        },50);
+
+    },1000);
 
 }
     
@@ -194,30 +221,22 @@ Po několika klidných dnech se objevila nová výzva...
 <div class="grid">
 
 <div class="card" onclick="choose(this,'kamarad.html')">
-    <a href="kamarad.html">
         <img src="images/Kamarád z dětství.jpg">
-    </a>
     <p>***</p>
 </div>
 
-<div class="card">
-    <a href="mesto.html">
+<div class="card" onclick="choose(this,'mesto.html')">
         <img src="images/Strážit město.jpg">
-    </a>
     <p>***</p>
 </div>
 
-<div class="card">
-    <a href="ztrata.html">
+<div class="card" onclick="choose(this,'ztrata.html')">
         <img src="images/Tragická ztráta.jpg">
-    </a>
     <p>***</p>
 </div>
 
-<div class="card">
-    <a href="prokleti.html">
+<div class="card" onclick="choose(this,'prokleti.html')">
         <img src="images/Prokletí.jpg">
-    </a>
     <p>***</p>
 </div>
 </body>

@@ -1,19 +1,183 @@
-<h1>Tvá cesta</h1>
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
 
-<div id="vysledek"></div>
+<title>Tvá cesta</title>
+
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    padding:40px;
+
+    background:#0f0804;
+    color:#f8e8c8;
+
+    font-family:'MedievalSharp', serif;
+    text-align:center;
+}
+
+h1{
+    color:#ffb347;
+    margin-bottom:50px;
+}
+
+.karty{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-top:80px;
+
+}
+
+.karta{
+
+    width:260px;
+
+    margin-left:-80px;
+
+    transition:all 0.4s ease;
+
+    cursor:pointer;
+
+    position:relative;
+
+}
+
+.karta:first-child{
+    margin-left:0;
+}
+
+.karta img{
+
+    width:100%;
+
+    border-radius:12px;
+
+    box-shadow:0 0 15px rgba(0,0,0,0.5);
+
+}
+
+.karta:hover{
+
+    transform:translateY(-20px) scale(1.08);
+
+    z-index:100;
+
+}
+
+.karta:hover img{
+
+    box-shadow:
+    0 0 15px #ff7f1d,
+    0 0 40px rgba(255,127,29,0.6);
+
+}
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,0.9);
+
+    z-index:1000;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.modal img{
+
+    max-height:90vh;
+
+    max-width:90vw;
+
+}
+
+.close{
+
+    position:absolute;
+
+    top:20px;
+
+    right:40px;
+
+    font-size:50px;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Tvá cesta osudem</h1>
+
+<div class="karty" id="kartyContainer">
+
+</div>
+
+<div class="modal" id="modal">
+
+    <span class="close" onclick="zavri()">&times;</span>
+
+    <img id="velkyObrazek">
+
+</div>
 
 <script>
 
-let cesta = JSON.parse(localStorage.getItem("cesta")) || [];
+const vybraneKarty = JSON.parse(
+    localStorage.getItem("cesta")
+) || [];
 
-let vysledek = document.getElementById("vysledek");
+const container = document.getElementById("kartyContainer");
 
-cesta.forEach(volba => {
+vybraneKarty.forEach(karta => {
 
-    vysledek.innerHTML += `
-        <p>${volba}</p>
+    container.innerHTML += `
+        <div class="karta">
+
+            <img
+                src="${karta.obrazek}"
+                onclick="zobraz('${karta.obrazek}')"
+            >
+
+        </div>
     `;
 
 });
 
+function zobraz(cesta){
+
+    document.getElementById("modal").style.display="flex";
+
+    document.getElementById("velkyObrazek").src=cesta;
+
+}
+
+function zavri(){
+
+    document.getElementById("modal").style.display="none";
+
+}
+
 </script>
+
+</body>
+</html>

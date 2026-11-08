@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+
 <meta charset="UTF-8">
 
-<title>Tvá cesta</title>
+<title>Tvá cesta osudem</title>
 
 <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
 
@@ -22,12 +23,17 @@ body{
 
 h1{
     color:#ffb347;
-    margin-bottom:50px;
 }
-    .statistiky{
+
+.statistiky{
 
     max-width:700px;
-    margin:30px auto;
+
+    margin:auto;
+
+    margin-top:30px;
+
+    margin-bottom:50px;
 
     background:rgba(255,255,255,0.08);
 
@@ -39,30 +45,33 @@ h1{
 
 .stat{
 
-    margin:12px;
-    font-size:24px;
+    font-size:22px;
+
+    margin:10px;
 
 }
 
 .archetyp{
 
-    margin:40px auto;
-
     max-width:800px;
 
-    background:rgba(255,179,71,0.12);
-
-    border:1px solid #ffb347;
+    margin:40px auto;
 
     padding:30px;
 
     border-radius:15px;
+
+    border:1px solid #ffb347;
+
+    background:rgba(255,179,71,0.08);
 
 }
 
 .archetyp h2{
 
     color:#ffb347;
+
+    margin-top:0;
 
 }
 
@@ -72,35 +81,29 @@ h1{
 
     justify-content:center;
 
-    margin-top:80px;
+    flex-wrap:wrap;
+
+    margin-top:60px;
 
 }
 
 .karta{
 
-    width:260px;
+    width:250px;
 
-    margin-left:-80px;
+    margin-left:-70px;
 
-    transition:all 0.4s ease;
-
-    cursor:pointer;
+    transition:all .4s ease;
 
     position:relative;
+
+    cursor:pointer;
 
 }
 
 .karta:first-child{
+
     margin-left:0;
-}
-
-.karta img{
-
-    width:100%;
-
-    border-radius:12px;
-
-    box-shadow:0 0 15px rgba(0,0,0,0.5);
 
 }
 
@@ -112,11 +115,22 @@ h1{
 
 }
 
+.karta img{
+
+    width:100%;
+
+    border-radius:12px;
+
+    box-shadow:
+        0 0 15px rgba(0,0,0,0.5);
+
+}
+
 .karta:hover img{
 
     box-shadow:
-    0 0 15px #ff7f1d,
-    0 0 40px rgba(255,127,29,0.6);
+        0 0 15px #ff7f1d,
+        0 0 40px rgba(255,127,29,0.6);
 
 }
 
@@ -128,21 +142,21 @@ h1{
 
     inset:0;
 
-    background:rgba(0,0,0,0.9);
-
-    z-index:1000;
+    background:rgba(0,0,0,0.92);
 
     justify-content:center;
 
     align-items:center;
 
+    z-index:1000;
+
 }
 
 .modal img{
 
-    max-height:90vh;
-
     max-width:90vw;
+
+    max-height:90vh;
 
 }
 
@@ -154,9 +168,9 @@ h1{
 
     right:40px;
 
-    font-size:50px;
-
     color:white;
+
+    font-size:50px;
 
     cursor:pointer;
 
@@ -169,9 +183,9 @@ h1{
 
 <h1>Tvá cesta osudem</h1>
 
-    <div class="statistiky">
+<div class="statistiky">
 
-    <h2>Charakteristika postavy</h2>
+    <h2>Výsledné statistiky</h2>
 
     <div class="stat" id="vztahy"></div>
     <div class="stat" id="odvaha"></div>
@@ -184,15 +198,15 @@ h1{
 
 <div class="archetyp">
 
-    <h2 id="nazevArchetypu"></h2>
+    <h2 id="archetypNazev"></h2>
 
-    <p id="popisArchetypu"></p>
-
-</div>
-
-<div class="karty" id="kartyContainer">
+    <p id="archetypPopis"></p>
 
 </div>
+
+<h2>Tvé vybrané karty</h2>
+
+<div class="karty" id="kartyContainer"></div>
 
 <div class="modal" id="modal">
 
@@ -204,26 +218,9 @@ h1{
 
 <script>
 
-const vybraneKarty = JSON.parse(
-    localStorage.getItem("cesta")
-) || [];
+const vybraneKarty =
+JSON.parse(localStorage.getItem("cesta")) || [];
 
-const container = document.getElementById("kartyContainer");
-
-vybraneKarty.forEach(karta => {
-
-    container.innerHTML += `
-        <div class="karta">
-
-            <img
-                src="${karta.obrazek}"
-                onclick="zobraz('${karta.obrazek}')"
-            >
-
-        </div>
-    `;
-
-});
 let vztahy = 0;
 let odvaha = 0;
 let bohatstvi = 0;
@@ -231,18 +228,39 @@ let osud = 0;
 let moc = 0;
 let vedomosti = 0;
 
+const container =
+document.getElementById("kartyContainer");
+
 vybraneKarty.forEach(karta => {
 
-    if(!karta.bonusy) return;
+    container.innerHTML += `
+        <div class="karta">
 
-    vztahy += karta.bonusy.vztahy || 0;
-    odvaha += karta.bonusy.odvaha || 0;
-    bohatstvi += karta.bonusy.bohatstvi || 0;
-    osud += karta.bonusy.osud || 0;
-    moc += karta.bonusy.moc || 0;
-    vedomosti += karta.bonusy.vedomosti || 0;
+            <img
+            src="${karta.obrazek}"
+            onclick="zobraz('${karta.obrazek}')">
+
+        </div>
+    `;
+
+    if(karta.bonusy){
+
+        vztahy += karta.bonusy.vztahy || 0;
+
+        odvaha += karta.bonusy.odvaha || 0;
+
+        bohatstvi += karta.bonusy.bohatstvi || 0;
+
+        osud += karta.bonusy.osud || 0;
+
+        moc += karta.bonusy.moc || 0;
+
+        vedomosti += karta.bonusy.vedomosti || 0;
+
+    }
 
 });
+
 document.getElementById("vztahy").innerHTML =
 "❤️ Vztahy: " + vztahy;
 
@@ -260,39 +278,41 @@ document.getElementById("moc").innerHTML =
 
 document.getElementById("vedomosti").innerHTML =
 "📚 Vědomosti: " + vedomosti;
-    const archetypy = {
+
+const archetypy = {
 
     vztahy:{
-        nazev:"Strážce srdcí",
-        popis:"Vztahy a věrnost byly největší silou tvého života."
+        nazev:"❤️ Strážce srdcí",
+        popis:"Vztahy, přátelství a věrnost byly během tvého života nejdůležitější hodnotou."
     },
 
     odvaha:{
-        nazev:"Dobyvatel horizontů",
-        popis:"Riskoval jsi více než ostatní a právě díky tomu ses stal legendou."
+        nazev:"⚔️ Dobyvatel horizontů",
+        popis:"Nebezpečí tě nikdy nezastavilo. Tvůj život byl plný dobrodružství a risku."
     },
 
     bohatstvi:{
-        nazev:"Pán obchodu",
-        popis:"Viděl jsi příležitost tam, kde ostatní viděli překážky."
+        nazev:"💰 Pán obchodu",
+        popis:"Uměl jsi proměnit příležitosti v bohatství a získat výhodu tam, kde ji ostatní neviděli."
     },
 
     osud:{
-        nazev:"Dítě osudu",
-        popis:"Tvůj život byl veden magií, tajemstvími a prastarými silami."
+        nazev:"✨ Dítě osudu",
+        popis:"Tvou cestu ovlivňovaly tajemné síly, magie a pradávná proroctví."
     },
 
     moc:{
-        nazev:"Vládce osudu",
-        popis:"Toužil jsi po vlivu a dokázal jsi změnit svět kolem sebe."
+        nazev:"👑 Vládce osudu",
+        popis:"Toužil jsi po vlivu a schopnosti měnit svět kolem sebe."
     },
 
     vedomosti:{
-        nazev:"Mistr vědění",
+        nazev:"📚 Mistr vědění",
         popis:"Největší zbraní pro tebe nebyl meč, ale poznání."
     }
 
 };
+
 const vysledky = {
 
     vztahy,
@@ -304,26 +324,34 @@ const vysledky = {
 
 };
 
-const nejvyssi = Object.keys(vysledky)
+const nejvyssi =
+Object.keys(vysledky)
 .reduce((a,b) =>
-vysledky[a] > vysledky[b] ? a : b);
+vysledky[a] > vysledky[b]
+? a
+: b
+);
 
-document.getElementById("nazevArchetypu").innerHTML =
+document.getElementById("archetypNazev").innerHTML =
 archetypy[nejvyssi].nazev;
 
-document.getElementById("popisArchetypu").innerHTML =
+document.getElementById("archetypPopis").innerHTML =
 archetypy[nejvyssi].popis;
+
 function zobraz(cesta){
 
-    document.getElementById("modal").style.display="flex";
+    document.getElementById("modal").style.display =
+    "flex";
 
-    document.getElementById("velkyObrazek").src=cesta;
+    document.getElementById("velkyObrazek").src =
+    cesta;
 
 }
 
 function zavri(){
 
-    document.getElementById("modal").style.display="none";
+    document.getElementById("modal").style.display =
+    "none";
 
 }
 
@@ -331,3 +359,4 @@ function zavri(){
 
 </body>
 </html>
+

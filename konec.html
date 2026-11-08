@@ -24,6 +24,47 @@ h1{
     color:#ffb347;
     margin-bottom:50px;
 }
+    .statistiky{
+
+    max-width:700px;
+    margin:30px auto;
+
+    background:rgba(255,255,255,0.08);
+
+    padding:25px;
+
+    border-radius:15px;
+
+}
+
+.stat{
+
+    margin:12px;
+    font-size:24px;
+
+}
+
+.archetyp{
+
+    margin:40px auto;
+
+    max-width:800px;
+
+    background:rgba(255,179,71,0.12);
+
+    border:1px solid #ffb347;
+
+    padding:30px;
+
+    border-radius:15px;
+
+}
+
+.archetyp h2{
+
+    color:#ffb347;
+
+}
 
 .karty{
 
@@ -128,6 +169,27 @@ h1{
 
 <h1>Tvá cesta osudem</h1>
 
+    <div class="statistiky">
+
+    <h2>Charakteristika postavy</h2>
+
+    <div class="stat" id="vztahy"></div>
+    <div class="stat" id="odvaha"></div>
+    <div class="stat" id="bohatstvi"></div>
+    <div class="stat" id="osud"></div>
+    <div class="stat" id="moc"></div>
+    <div class="stat" id="vedomosti"></div>
+
+</div>
+
+<div class="archetyp">
+
+    <h2 id="nazevArchetypu"></h2>
+
+    <p id="popisArchetypu"></p>
+
+</div>
+
 <div class="karty" id="kartyContainer">
 
 </div>
@@ -162,7 +224,95 @@ vybraneKarty.forEach(karta => {
     `;
 
 });
+let vztahy = 0;
+let odvaha = 0;
+let bohatstvi = 0;
+let osud = 0;
+let moc = 0;
+let vedomosti = 0;
 
+vybraneKarty.forEach(karta => {
+
+    if(!karta.bonusy) return;
+
+    vztahy += karta.bonusy.vztahy || 0;
+    odvaha += karta.bonusy.odvaha || 0;
+    bohatstvi += karta.bonusy.bohatstvi || 0;
+    osud += karta.bonusy.osud || 0;
+    moc += karta.bonusy.moc || 0;
+    vedomosti += karta.bonusy.vedomosti || 0;
+
+});
+document.getElementById("vztahy").innerHTML =
+"❤️ Vztahy: " + vztahy;
+
+document.getElementById("odvaha").innerHTML =
+"⚔️ Odvaha: " + odvaha;
+
+document.getElementById("bohatstvi").innerHTML =
+"💰 Bohatství: " + bohatstvi;
+
+document.getElementById("osud").innerHTML =
+"✨ Osud: " + osud;
+
+document.getElementById("moc").innerHTML =
+"👑 Moc: " + moc;
+
+document.getElementById("vedomosti").innerHTML =
+"📚 Vědomosti: " + vedomosti;
+    const archetypy = {
+
+    vztahy:{
+        nazev:"Strážce srdcí",
+        popis:"Vztahy a věrnost byly největší silou tvého života."
+    },
+
+    odvaha:{
+        nazev:"Dobyvatel horizontů",
+        popis:"Riskoval jsi více než ostatní a právě díky tomu ses stal legendou."
+    },
+
+    bohatstvi:{
+        nazev:"Pán obchodu",
+        popis:"Viděl jsi příležitost tam, kde ostatní viděli překážky."
+    },
+
+    osud:{
+        nazev:"Dítě osudu",
+        popis:"Tvůj život byl veden magií, tajemstvími a prastarými silami."
+    },
+
+    moc:{
+        nazev:"Vládce osudu",
+        popis:"Toužil jsi po vlivu a dokázal jsi změnit svět kolem sebe."
+    },
+
+    vedomosti:{
+        nazev:"Mistr vědění",
+        popis:"Největší zbraní pro tebe nebyl meč, ale poznání."
+    }
+
+};
+const vysledky = {
+
+    vztahy,
+    odvaha,
+    bohatstvi,
+    osud,
+    moc,
+    vedomosti
+
+};
+
+const nejvyssi = Object.keys(vysledky)
+.reduce((a,b) =>
+vysledky[a] > vysledky[b] ? a : b);
+
+document.getElementById("nazevArchetypu").innerHTML =
+archetypy[nejvyssi].nazev;
+
+document.getElementById("popisArchetypu").innerHTML =
+archetypy[nejvyssi].popis;
 function zobraz(cesta){
 
     document.getElementById("modal").style.display="flex";

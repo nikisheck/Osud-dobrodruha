@@ -148,7 +148,7 @@ body.animating .grid{
 <script>
 
 window.addEventListener('load', () => {
-
+localStorage.removeItem("cesta");
     const music = document.getElementById('bgmusic');
 
     music.volume = 0.4;
@@ -196,31 +196,56 @@ function fadeMusic(){
 
 }
 
-function choose(selectedCard, destination){
-let cesta = JSON.parse(localStorage.getItem("cesta")) || [];
+function choose(
+    selectedCard,
+    destination,
+    nazev,
+    obrazek
+){
 
-cesta.push(destination);
+    let cesta =
+        JSON.parse(
+            localStorage.getItem("cesta")
+        ) || [];
 
-localStorage.setItem("cesta", JSON.stringify(cesta));
+    cesta.push({
+
+        nazev: nazev,
+        obrazek: obrazek
+
+    });
+
+    localStorage.setItem(
+        "cesta",
+        JSON.stringify(cesta)
+    );
+
     fadeMusic();
 
     document.body.classList.add("animating");
 
-    let cards = document.querySelectorAll(".card");
+    let cards =
+        document.querySelectorAll(".card");
 
     cards.forEach(card => {
 
         if(card === selectedCard){
+
             card.classList.add("selected");
-        }
-        else{
+
+        }else{
+
             card.classList.add("burn");
+
         }
 
     });
 
     setTimeout(() => {
-        window.location.href = destination;
+
+        window.location.href =
+            destination;
+
     },3000);
 
 }
@@ -254,22 +279,46 @@ Upravil jsem si kožený pás s tesákem, hodil těžký žok s výstrojí přes
 
 <div class="grid">
 
-<div class="card" onclick="choose(this,'laska.html')">
+<div class="card"
+onclick="choose(
+this,
+'laska.html',
+'Blízká láska',
+'images/Blízká láska.jpg'
+)">
     <img src="images/Blízká láska.jpg">
     <p>Dokážeš získat srdce osoby, kterou obdivuješ?</p>
 </div>
 
-<div class="card" onclick="choose(this,'ritual.html')">
+<div class="card"
+onclick="choose(
+this,
+'ritual.html',
+'Lesní rituál',
+'images/Lesní rituál.jpg'
+)">
         <img src="images/Lesní rituál.jpg">
     <p>V tajemném lese probíhá prastarý obřad.</p>
 </div>
 
-<div class="card" onclick="choose(this,'plavba.html')">
-        <img src="images/Nebezpečná plavba.jpg">
+<div class="card"
+onclick="choose(
+this,
+'plavba.html',
+'Nebezpečká plavba',
+'images/Nebezpečná plavba.jpg'
+)">
+       <img src="images/Nebezpečná plavba.jpg">
     <p>Bouře a mořská monstra čekají za horizontem.</p>
 </div>
 
-<div class="card" onclick="choose(this,'pirati.html')">
+<div class="card"
+onclick="choose(
+this,
+'pirati.html',
+'Odhalit doupě pirátů',
+'images/Odhalit doupě pirátů.jpg'
+)">
         <img src="images/Odhalit doupě pirátů.jpg">
     <p>Máš odvahu proniknout mezi piráty?</p>
 </div>

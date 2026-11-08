@@ -239,35 +239,72 @@ function fadeMusic(){
     },50);
 
 }
-function choose(selectedCard, destination){
-let cesta = JSON.parse(localStorage.getItem("cesta")) || [];
+function choose(
+    selectedCard,
+    destination,
+    nazev,
+    obrazek,
+    vztahy,
+    odvaha,
+    bohatstvi,
+    osud,
+    moc,
+    vedeni
+){
 
-cesta.push(destination);
+    let cesta =
+        JSON.parse(
+            localStorage.getItem("cesta")
+        ) || [];
 
-localStorage.setItem("cesta", JSON.stringify(cesta));
+   cesta.push({
+
+    nazev: nazev,
+
+    obrazek: obrazek,
+
+    bonusy:{
+        vztahy:vztahy,
+        odvaha:odvaha,
+        bohatstvi:bohatstvi,
+        osud:osud,
+        moc:moc,
+        vedeni:vedeni
+    }
+
+});
+
+    localStorage.setItem(
+        "cesta",
+        JSON.stringify(cesta)
+    );
+
     fadeMusic();
 
     document.body.classList.add("animating");
-const heading = document.querySelector("#kapitola2 h1");
-const text = document.querySelector("#kapitola2 > p");
 
-if(heading) heading.style.opacity = "0";
-if(text) text.style.opacity = "0";
-    let cards = document.querySelectorAll(".card");
+    let cards =
+        document.querySelectorAll(".card");
 
     cards.forEach(card => {
 
         if(card === selectedCard){
+
             card.classList.add("selected");
-        }
-        else{
+
+        }else{
+
             card.classList.add("burn");
+
         }
 
     });
 
     setTimeout(() => {
-        window.location.href = destination;
+
+        window.location.href =
+            destination;
+
     },3000);
 
 }
@@ -287,7 +324,7 @@ if(text) text.style.opacity = "0";
 Plížil jsem se stíny podél útesů, až mě pach starého rumu a střelného prachu přivedl ke skrytému vchodu do jeskyně.
 </p>
 <p>
-Získáváš následující bonusy: +1 ⛲ , +2 ⛪
+Získáváš následující bonusy: +2 ⚔️ +2 💰
 </p>
 
 <button onclick="pokracuj()">
@@ -306,22 +343,74 @@ Po několika klidných dnech se objevila nová výzva...
 
 <div class="grid">
 
-<div class="card" onclick="choose(this,'poklad.html')">
+<div class="card"
+onclick="choose(
+this,
+'poklad.html',
+'Utéct s pokladem',
+'images/Utéct s pokladem.jpg',
+
+0,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+4,  /* 💰 bohatství */
+0,  /* ✨ osud */
+0,  /* 👑 moc */
+0   /* 📚 vědomosti */
+)">
         <img src="images/Utéct s pokladem.jpg">
     <p>***</p>
 </div>
 
-<div class="card" onclick="choose(this,'gang.html')">
+<div class="card"
+onclick="choose(
+this,
+'gang.html',
+'Převzít vedení gangu',
+'images/Převzít vedení gangu.jpg',
+
+0,  /* ❤️ vztahy */
+2,  /* ⚔️ odvaha */
+1,  /* 💰 bohatství */
+0,  /* ✨ osud */
+3,  /* 👑 moc */
+0   /* 📚 vědomosti */
+)">
         <img src="images/Převzít vedení gangu.jpg">
     <p>***</p>
 </div>
 
-<div class="card" onclick="choose(this,'chudy.html')">
+<div class="card"
+onclick="choose(
+this,
+'chudy.html',
+'Dávat chudým',
+'images/Dávat chudým.jpg',
+
+2,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+0,  /* ✨ osud */
+0,  /* 👑 moc */
+0   /* 📚 vědomosti */
+)">
         <img src="images/Dávat chudým.jpg">
     <p>***</p>
 </div>
 
-<div class="card" onclick="choose(this,'boj.html')">
+<div class="card"
+onclick="choose(
+this,
+'boj.html',
+'Skrýt se před bojem',
+'images/Skrýt se před bojem.jpg',
+
+0,  /* ❤️ vztahy */
+1,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+0,  /* ✨ osud */
+0,  /* 👑 moc */
+1   /* 📚 vědomosti */
+)">
         <img src="images/Skrýt se před bojem.jpg">
     <p>***</p>
 </div>

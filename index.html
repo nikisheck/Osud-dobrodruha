@@ -200,7 +200,13 @@ function choose(
     selectedCard,
     destination,
     nazev,
-    obrazek
+    obrazek,
+    vztahy,
+    odvaha,
+    bohatstvi,
+    osud,
+    moc,
+    vedeni
 ){
 
     let cesta =
@@ -208,12 +214,22 @@ function choose(
             localStorage.getItem("cesta")
         ) || [];
 
-    cesta.push({
+   cesta.push({
 
-        nazev: nazev,
-        obrazek: obrazek
+    nazev: nazev,
 
-    });
+    obrazek: obrazek,
+
+    bonusy:{
+        vztahy:vztahy,
+        odvaha:odvaha,
+        bohatstvi:bohatstvi,
+        osud:osud,
+        moc:moc,
+        vedeni:vedeni
+    }
+
+});
 
     localStorage.setItem(
         "cesta",
@@ -285,6 +301,13 @@ this,
 'laska.html',
 'Blízká láska',
 'images/Blízká láska.jpg'
+
+2,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+0,  /* ✨ osud */
+0,  /* 👑 moc */
+1   /* 📚 vědomosti */
 )">
     <img src="images/Blízká láska.jpg">
     <p>Dokážeš získat srdce osoby, kterou obdivuješ?</p>
@@ -293,9 +316,16 @@ this,
 <div class="card"
 onclick="choose(
 this,
-'ritual.html',
-'Lesní rituál',
-'images/Lesní rituál.jpg'
+'laska.html',
+'Blízká láska',
+'images/Blízká láska.jpg',
+
+0,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+3,  /* ✨ osud */
+0,  /* 👑 moc */
+1   /* 📚 vědomosti */
 )">
         <img src="images/Lesní rituál.jpg">
     <p>V tajemném lese probíhá prastarý obřad.</p>
@@ -307,6 +337,13 @@ this,
 'plavba.html',
 'Nebezpečká plavba',
 'images/Nebezpečná plavba.jpg'
+
+0,  /* ❤️ vztahy */
+3,  /* ⚔️ odvaha */
+1,  /* 💰 bohatství */
+0,  /* ✨ osud */
+0,  /* 👑 moc */
+0   /* 📚 vědomosti */
 )">
        <img src="images/Nebezpečná plavba.jpg">
     <p>Bouře a mořská monstra čekají za horizontem.</p>
@@ -318,6 +355,13 @@ this,
 'pirati.html',
 'Odhalit doupě pirátů',
 'images/Odhalit doupě pirátů.jpg'
+
+0,  /* ❤️ vztahy */
+2,  /* ⚔️ odvaha */
+2,  /* 💰 bohatství */
+0,  /* ✨ osud */
+0,  /* 👑 moc */
+0   /* 📚 vědomosti */
 )">
         <img src="images/Odhalit doupě pirátů.jpg">
     <p>Máš odvahu proniknout mezi piráty?</p>

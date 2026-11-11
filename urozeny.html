@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Tajný urozený původ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    
+<style>
+
+body{
+    position:relative;
+
+    background-image:url('images/urozeny.JPG');
+    background-size:cover;
+    background-position:center center;
+    background-attachment:fixed;
+    background-repeat:no-repeat;
+
+    color:#dfe9f7;
+    text-align:center;
+    font-family:'MedievalSharp', serif;
+    padding:40px;
+}
+    h1{
+    color:#299bbe;
+    font-size:60px;
+}
+    body.animating #kapitola2 h1,
+body.animating #kapitola2 > p{
+    opacity:0;
+}
+
+body.animating .grid{
+    pointer-events:none;
+}
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.15);
+
+    transition:all 1.5s ease;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+    body.darkChapter::before{
+
+    background:rgba(0,0,0,0.65);
+
+}
+        body.animating::before{
+
+    background:rgba(0,0,0,0.85);
+
+    backdrop-filter:blur(4px);
+
+    transition:all 2s ease;
+}
+
+    #kapitola1,
+#kapitola2{
+    transition:opacity 1s ease;
+}
+
+#kapitola2{
+    opacity:0;
+}
+button{
+    background:#203c65;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    font-size:20px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2e4a72;
+    transform:scale(1.03);
+    box-shadow:
+0 0 6px #9ed7e6,
+0 0 15px #ccebf3;
+}
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    max-width:1300px;
+    margin:auto;
+}
+.card{
+    border:none;
+    background:none;
+}
+
+.card:hover{
+    transform:scale(1.03);
+    box-shadow:
+0 0 6px #9ed7e6,
+0 0 15px #ccebf3;
+}
+
+.card img{
+    width:100%;
+    display:block;
+}
+.card h2{
+    color:#ffb347;
+}
+
+.card p{
+    padding:0 20px;
+}
+.card{
+    cursor:pointer;
+    transition:all 1s ease;
+}
+
+.card.selected{
+    animation: magicChoice 3s forwards;
+}
+
+@keyframes magicChoice{
+
+    0%{
+        transform:scale(1);
+        opacity:1;
+    }
+
+    20%{
+        transform:scale(1.05);
+        opacity:1;
+
+        box-shadow:
+    0 0 15px #9ed7e6,
+0 0 35px #ccebf3;
+    }
+
+    70%{
+        transform:scale(1.05);
+        opacity:1;
+
+        box-shadow:
+          0 0 25px #9ed7e6,
+            0 0 60px #ccebf3;
+    }
+
+    100%{
+        transform:scale(1.15);
+        opacity:0;
+    }
+}
+
+.card.burn{
+    opacity:0;
+    transform:scale(0.7);
+    filter:
+        brightness(2)
+        sepia(1)
+        hue-rotate(-30deg);
+}
+
+body.animating .grid{
+    pointer-events:none;
+}
+    
+</style>
+</head>
+
+<script>
+
+function pokracuj(){
+
+    const k1 = document.getElementById("kapitola1");
+    const k2 = document.getElementById("kapitola2");
+
+    k1.style.opacity = "0";
+
+    document.body.classList.add("darkChapter");
+
+    setTimeout(() => {
+
+        k1.style.display = "none";
+
+        k2.style.display = "block";
+
+        k2.style.opacity = "0";
+
+        setTimeout(() => {
+
+            k2.style.opacity = "1";
+
+        },50);
+
+    },1000);
+
+}
+function fadeMusic(){
+
+    const audio = document.getElementById("bgmusic");
+
+    if(!audio){
+        return;
+    }
+
+    audio.volume = 0.4;
+
+    let volume = audio.volume;
+
+    const fade = setInterval(() => {
+
+        volume -= 0.01;
+
+        if(volume <= 0){
+
+            audio.volume = 0;
+            clearInterval(fade);
+
+        } else {
+
+            audio.volume = volume;
+
+        }
+
+    },50);
+
+}
+function choose(
+    selectedCard,
+    destination,
+    nazev,
+    obrazek,
+    vztahy,
+    odvaha,
+    bohatstvi,
+    osud,
+    moc,
+    vedeni
+){
+
+    let cesta =
+        JSON.parse(
+            localStorage.getItem("cesta")
+        ) || [];
+
+   cesta.push({
+
+    nazev: nazev,
+
+    obrazek: obrazek,
+
+    bonusy:{
+        vztahy:vztahy,
+        odvaha:odvaha,
+        bohatstvi:bohatstvi,
+        osud:osud,
+        moc:moc,
+        vedeni:vedeni
+    }
+
+});
+
+    localStorage.setItem(
+        "cesta",
+        JSON.stringify(cesta)
+    );
+
+    fadeMusic();
+
+    document.body.classList.add("animating");
+
+    let cards =
+        document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        if(card === selectedCard){
+
+            card.classList.add("selected");
+
+        }else{
+
+            card.classList.add("burn");
+
+        }
+
+    });
+
+    setTimeout(() => {
+
+        window.location.href =
+            destination;
+
+    },3000);
+
+}
+</script>
+
+<body>
+
+    <audio autoplay loop id="bgmusic">
+    <source src="music/urozeny.mp3" type="audio/mpeg">
+</audio>
+ 
+<div id="kapitola1">
+
+<h1>Tajný urozený původ</h1>
+
+<p>
+Starý právník mi vložením zapečetěného listu do ruky převrátil život naroubce. Erb na vosku i rodokmen v pergamenu mluvily jasně – v mé krvi koluje královská krev a nárok na trůn, o kterém jsem neměl ani tušení.
+</p>
+<p>
+Získáváš následující bonusy: +2 👑 +1 📚
+</p>
+
+<button onclick="pokracuj()">
+Pokračuj v dobrodružství
+</button>
+
+</div>
+
+<div id="kapitola2" style="display:none;">
+
+<h1>Dobrodružství pokračuje</h1>
+
+<p>
+Po několika klidných dnech se objevila nová výzva...
+</p>
+
+<div class="grid">
+
+<div class="card"
+onclick="choose(
+this,
+'opevneni.html',
+'Vybudovat opevnění',
+'images/Vybudovat opevnění.jpg',
+
+0,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+0,  /* ✨ osud */
+2,  /* 👑 moc */
+2   /* 📚 vědomosti */
+)">
+        <img src="images/Vybudovat opevnění.jpg">
+    <p>***</p>
+</div>
+
+<div class="card"
+onclick="choose(
+this,
+'zapomenutevedeni.html',
+'Naučit se zapomenuté vědění',
+'images/Naučit se zapomenuté vědění.jpg',
+
+
+0,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+1,  /* ✨ osud */
+2,  /* 👑 moc */
+4   /* 📚 vědomosti */
+)">
+        <img src="images/Naučit se zapomenuté vědění.jpg">
+    <p>***</p>
+</div>
+
+<div class="card"
+onclick="choose(
+this,
+'skutecnalaska.html',
+'Skutečná láska',
+'images/Skutečná láska.jpg',
+
+4,  /* ❤️ vztahy */
+0,  /* ⚔️ odvaha */
+0,  /* 💰 bohatství */
+1,  /* ✨ osud */
+0,  /* 👑 moc */
+1   /* 📚 vědomosti */
+)">
+        <img src="images/Skutečná láska.jpg">
+    <p>***</p>
+</div>
+
+<div class="card"
+onclick="choose(
+this,
+'vudce.html',
+'Spravedlivý vůdce',
+'images/Spravedlivý vůdce.jpg',
+
+0,  /* ❤️ vztahy */
+2,  /* ⚔️ odvaha */
+1,  /* 💰 bohatství */
+0,  /* ✨ osud */
+3,  /* 👑 moc */
+0   /* 📚 vědomosti */
+)">
+        <img src="images/Spravedlivý vůdce.jpg">
+    <p>***</p>
+</div>
+    </div>
+    </div>
+</body>
+</html>
 
